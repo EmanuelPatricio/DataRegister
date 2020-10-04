@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Emanuel\\Desktop\\Data Register\\Data Register.csproj": {}
+    "C:\\Users\\Emanuel\\Documents\\GitHub\\DataRegister\\Data Register.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Emanuel\\Desktop\\Data Register\\Data Register.csproj": {
+    "C:\\Users\\Emanuel\\Documents\\GitHub\\DataRegister\\Data Register.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Emanuel\\Desktop\\Data Register\\Data Register.csproj",
+        "projectUniqueName": "C:\\Users\\Emanuel\\Documents\\GitHub\\DataRegister\\Data Register.csproj",
         "projectName": "Data Register",
-        "projectPath": "C:\\Users\\Emanuel\\Desktop\\Data Register\\Data Register.csproj",
+        "projectPath": "C:\\Users\\Emanuel\\Documents\\GitHub\\DataRegister\\Data Register.csproj",
         "packagesPath": "C:\\Users\\Emanuel\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Emanuel\\Desktop\\Data Register\\obj\\",
+        "outputPath": "C:\\Users\\Emanuel\\Documents\\GitHub\\DataRegister\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Emanuel\\AppData\\Roaming\\NuGet\\NuGet.Config",

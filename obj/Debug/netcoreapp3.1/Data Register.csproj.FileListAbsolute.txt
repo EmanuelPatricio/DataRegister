@@ -11,3 +11,16 @@ C:\Users\Emanuel\Desktop\Data Register\obj\Debug\netcoreapp3.1\Data Register.Ass
 C:\Users\Emanuel\Desktop\Data Register\obj\Debug\netcoreapp3.1\Data Register.dll
 C:\Users\Emanuel\Desktop\Data Register\obj\Debug\netcoreapp3.1\Data Register.pdb
 C:\Users\Emanuel\Desktop\Data Register\obj\Debug\netcoreapp3.1\Data Register.genruntimeconfig.cache
+C:\Users\Emanuel\Documents\GitHub\DataRegister\bin\Debug\netcoreapp3.1\Data Register.exe
+C:\Users\Emanuel\Documents\GitHub\DataRegister\bin\Debug\netcoreapp3.1\Data Register.deps.json
+C:\Users\Emanuel\Documents\GitHub\DataRegister\bin\Debug\netcoreapp3.1\Data Register.runtimeconfig.json
+C:\Users\Emanuel\Documents\GitHub\DataRegister\bin\Debug\netcoreapp3.1\Data Register.runtimeconfig.dev.json
+C:\Users\Emanuel\Documents\GitHub\DataRegister\bin\Debug\netcoreapp3.1\Data Register.dll
+C:\Users\Emanuel\Documents\GitHub\DataRegister\bin\Debug\netcoreapp3.1\Data Register.pdb
+C:\Users\Emanuel\Documents\GitHub\DataRegister\obj\Debug\netcoreapp3.1\Data Register.csprojAssemblyReference.cache
+C:\Users\Emanuel\Documents\GitHub\DataRegister\obj\Debug\netcoreapp3.1\Data Register.csproj.CoreCompileInputs.cache
+C:\Users\Emanuel\Documents\GitHub\DataRegister\obj\Debug\netcoreapp3.1\Data Register.AssemblyInfoInputs.cache
+C:\Users\Emanuel\Documents\GitHub\DataRegister\obj\Debug\netcoreapp3.1\Data Register.AssemblyInfo.cs
+C:\Users\Emanuel\Documents\GitHub\DataRegister\obj\Debug\netcoreapp3.1\Data Register.dll
+C:\Users\Emanuel\Documents\GitHub\DataRegister\obj\Debug\netcoreapp3.1\Data Register.pdb
+C:\Users\Emanuel\Documents\GitHub\DataRegister\obj\Debug\netcoreapp3.1\Data Register.genruntimeconfig.cache
