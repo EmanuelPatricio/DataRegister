@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace DataRegister
 {
@@ -133,7 +134,7 @@ namespace DataRegister
             Console.Write("Last Name: ");
             string lastName = Console.ReadLine();
             Console.Write("Savings: ");
-            double savings = double.Parse(Console.ReadLine());
+            double savings = double.Parse(ReadDouble());
 
             string pass, cpass;
             do
@@ -312,6 +313,85 @@ namespace DataRegister
             } while (key.Key != ConsoleKey.Enter);
 
             return value;
+        }
+
+        static string ReadDouble()
+        {
+            string doubleValue = "";
+            int dotCount = 0;
+            ConsoleKeyInfo key = Console.ReadKey(true);
+            while (key.Key != ConsoleKey.Enter)
+            {
+                if (key.Key != ConsoleKey.Backspace)
+                {
+                    switch (key.Key)
+                    {
+                        case ConsoleKey.D0:
+                            Console.Write("0");
+                            doubleValue += key.KeyChar;                             
+                            break;
+                        case ConsoleKey.D1:
+                            Console.Write("1");
+                            doubleValue += key.KeyChar;
+                            break;
+                        case ConsoleKey.D2:
+                            Console.Write("2");
+                            doubleValue += key.KeyChar;
+                            break;
+                        case ConsoleKey.D3:
+                            Console.Write("3");
+                            doubleValue += key.KeyChar;
+                            break;
+                        case ConsoleKey.D4:
+                            Console.Write("4");
+                            doubleValue += key.KeyChar;
+                            break;
+                        case ConsoleKey.D5:
+                            Console.Write("5");
+                            doubleValue += key.KeyChar;
+                            break;
+                        case ConsoleKey.D6:
+                            Console.Write("6");
+                            doubleValue += key.KeyChar;
+                            break;
+                        case ConsoleKey.D7:
+                            Console.Write("7");
+                            doubleValue += key.KeyChar;
+                            break;
+                        case ConsoleKey.D8:
+                            Console.Write("8");
+                            doubleValue += key.KeyChar;
+                            break;
+                        case ConsoleKey.D9:
+                            Console.Write("9");
+                            doubleValue += key.KeyChar;
+                            break;
+                
+                        case ConsoleKey.OemPeriod:
+                            if(dotCount == 0)
+                            {
+                                dotCount++;
+                                Console.Write(".");
+                                doubleValue += key.KeyChar;
+                            }
+                            break;
+                    }
+                }
+                else
+                {
+                    if (doubleValue.Length > 0)
+                    {
+                        char character = doubleValue.Last();
+                        if (character == '.')
+                            dotCount = 0;
+                        doubleValue = doubleValue.Remove(doubleValue.Length - 1);
+                        Console.Write("\b \b");
+                    }
+                }
+                key = Console.ReadKey(true);
+            }
+            Console.WriteLine();
+            return doubleValue;
         }
     }
 }
