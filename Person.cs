@@ -20,6 +20,10 @@ namespace DataRegister
         public string Password { get; set; }
         private int Data = 0;
 
+        private Person(in string id) {
+            Id = id;
+        }
+
         public Person(in string id, in string name, in string lastname, in double savings, in string pass, in int age, in Gender gender, in MaritalStatus maritalS, in AcademicDegree academicD)
         {
             Id = id;
@@ -64,7 +68,10 @@ namespace DataRegister
         }
 
         internal static Person GetOnePerson(string id)
-            => people?.Where(a => a.Id.Trim() == id.Trim()).SingleOrDefault();
+        {
+            Person search = new Person(id);
+            return people?.Where(a => search.Equals(a)).SingleOrDefault();
+        }
 
         internal string Insert()
         {
@@ -88,7 +95,7 @@ namespace DataRegister
         {
             try
             {
-                var pos = people.FindIndex(a => a.Id == this.Id);
+                var pos = people.FindIndex(a => a.Equals(this));
                 people[pos] = this;
                 return "Field modified!";
             }
@@ -102,7 +109,8 @@ namespace DataRegister
         {
             try
             {
-                people.RemoveAll(x => x.Id.Trim() == id.Trim());
+                Person search = new Person(id);
+                people.RemoveAll(x => search.Equals(x));
                 return "Field deleted!";
             }
             catch (Exception e)
