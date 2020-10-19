@@ -8,6 +8,7 @@ namespace DataRegister
     class Program
     {
         public static string dataArchive;
+        private static PersonSet PersonSet = new PersonSet(27, 10);
         static void Main(string[] args)
         {
             int op = 0;
@@ -23,12 +24,13 @@ namespace DataRegister
                 else
                 {
                     var list = GetAllData();
-                    foreach (var line in list)
+                    for (int i = 0; i < list.Count; i++)
                     {
-                        if (list.IndexOf(line) > 0)
+                        if (i > 0)
                         {
-                            var person = Person.FromCsvLine(line);
-                            Person.people.Add(person);
+                            list[i] += $",{i}";
+                            var person = Person.FromCsvLine(list[i]);
+                            PersonSet.Add(person);
                         }
                     }
                 }
@@ -53,13 +55,16 @@ namespace DataRegister
                         case 1:
                             Console.Clear();
                             var person = Person.FromConsole(CaptureData());
-                            Console.WriteLine(person.Insert());
+                            if (PersonSet.Add(person))
+                                Console.WriteLine("Person created correctly!");
+                            else
+                                Console.WriteLine("The id has been already registered, please try again");
                             Console.ReadKey();
                             break;
 
                         case 2:
                             Console.Clear();
-                            foreach (var obj in Person.people)
+                            foreach (var obj in PersonSet.ToSortedArray())
                             {
                                 Console.WriteLine(obj.ToString());
                             }
@@ -71,11 +76,12 @@ namespace DataRegister
                             Console.Write("Enter the id: ");
                             string id = NumbersOnly(11);
                             Console.WriteLine("\n");
-                            var person1 = Person.GetOnePerson(id)?.ToString();
-                            if (person1 == null)
+                            var person1 = new Person(id);
+                            var record = PersonSet.Get(person1);
+                            if (record == null)
                                 Console.WriteLine("Couldn't found the id inserted");
                             else
-                                Console.WriteLine(person1.ToString());
+                                Console.WriteLine(record.ToString());
                             Console.ReadKey();
                             break;
 
@@ -90,7 +96,7 @@ namespace DataRegister
                             break;
                         
                         case 6:
-                            Person.SaveToCsv();
+                            Person.SaveToCsv(PersonSet.ToSortedArray());
                             break;
 
                         default:
@@ -226,14 +232,15 @@ namespace DataRegister
             Console.Write("Enter the id: ");
             string id = NumbersOnly(11);
             Console.WriteLine();
-            var person = Person.GetOnePerson(id);
-            if (person == null)
+            var oldPerson = new Person(id);
+            if (!(PersonSet.Contains(oldPerson)))
                 Console.WriteLine("Couldn't found the id inserted");
             else
             {
-                Console.WriteLine(person.ToString());
-                person = Person.FromCsvLine(CaptureData(id));
-                Console.WriteLine(person.Update());
+                oldPerson = PersonSet.Get(oldPerson);
+                Console.WriteLine(oldPerson.ToString());
+                var newPerson = Person.FromCsvLine(CaptureData(id));
+                PersonSet.Replace(oldPerson, newPerson);
             }
         }
 
@@ -245,17 +252,18 @@ namespace DataRegister
             Console.Write("Enter the id: ");
             string id = NumbersOnly(11);
             Console.WriteLine();
-            var person = Person.GetOnePerson(id);
-            if (person == null)
+            var person = new Person(id);
+            if (!(PersonSet.Contains(person)))
                 Console.WriteLine("Couldn't found the id inserted");
             else
             {
+                person = PersonSet.Get(person);
                 Console.WriteLine(person.ToString());
                 Console.Write("\nAre you sure you want to delete this record? (Y/N): ");
 
                 del = Console.ReadLine();
                 if (del == "Y")
-                    Console.WriteLine(person.Delete(id));
+                    PersonSet.Remove(person);
             }
         }
         

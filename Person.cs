@@ -19,10 +19,9 @@ namespace DataRegister
         public AcademicDegree AcademicDegree => (AcademicDegree)(Data & 0b11);
         public string Password { get; set; }
         private int Data = 0;
+        public int? IndexInCsv { get; }
 
-        private Person(in string id) {
-            Id = id;
-        }
+        public Person(in string id) => Id = id;
 
         public Person(in string id, in string name, in string lastname, in double savings, in string pass, in int age, in Gender gender, in MaritalStatus maritalS, in AcademicDegree academicD)
         {
@@ -46,7 +45,24 @@ namespace DataRegister
             return false;
         }
 
-        internal static Person FromCsvLine(string line)
+        public override int GetHashCode()
+        {
+            int hash = 0;
+            hash = Id.Substring(0, 3).GetHashCode();
+            return Math.Abs(hash);
+        }
+
+        public int CompareTo(object obj)
+        {
+            if (this.GetHashCode() < obj.GetHashCode())
+                return -1;
+            else if (this.GetHashCode() > obj.GetHashCode())
+                return 1;
+            else
+                return 0;
+        }
+
+        internal static Person FromCsvLine(in string line)
         {
             string[] tokens = line.Split(",");
 
@@ -59,7 +75,7 @@ namespace DataRegister
             return new Person (id, name, lastname, savings, pass, age, gender, maritalS, academicD);
         }
 
-        internal static Person FromConsole(string record)
+        internal static Person FromConsole(in string record)
         {
             var tokens = record.Split(',');
             (string id, string name, string lastname, double savings, string password, int age, Gender gender, MaritalStatus status, AcademicDegree academicGrade) = (tokens[0], tokens[1], tokens[2], double.Parse(tokens[3]), tokens[4], int.Parse(tokens[5]), (Gender)int.Parse(tokens[6]), (MaritalStatus)int.Parse(tokens[7]), (AcademicDegree)int.Parse(tokens[8]));
@@ -67,64 +83,64 @@ namespace DataRegister
             return new Person(id, name, lastname, savings, password, age, gender, status, academicGrade);
         }
 
-        internal static Person GetOnePerson(string id)
-        {
-            Person search = new Person(id);
-            return people?.Where(a => search.Equals(a)).SingleOrDefault();
-        }
+        // internal static Person GetOnePerson(in string id)
+        // {
+        //     Person search = new Person(id);
+        //     return people?.Where(a => search.Equals(a)).SingleOrDefault();
+        // }
 
-        internal string Insert()
-        {
-            try
-            {
-                if (people.Contains(this))
-                    return "The id has been already registered, please try again";
-                else
-                {
-                    people.Add(this);
-                    return "Person created correctly!";
-                }
-            }
-            catch (Exception e)
-            {
-                throw new ApplicationException("An error has ocurred: ", e);
-            }
-        }
+        // internal string Insert()
+        // {
+        //     try
+        //     {
+        //         if (people.Contains(this))
+        //             return "The id has been already registered, please try again";
+        //         else
+        //         {
+        //             people.Add(this);
+        //             return "Person created correctly!";
+        //         }
+        //     }
+        //     catch (Exception e)
+        //     {
+        //         throw new ApplicationException("An error has ocurred: ", e);
+        //     }
+        // }
 
-        internal string Update()
-        {
-            try
-            {
-                var pos = people.FindIndex(a => a.Equals(this));
-                people[pos] = this;
-                return "Field modified!";
-            }
-            catch (Exception e)
-            {
-                throw new ApplicationException("An error has ocurred: ", e);
-            }
-        }
+        // internal string Update()
+        // {
+        //     try
+        //     {
+        //         var pos = people.FindIndex(a => a.Equals(this));
+        //         people[pos] = this;
+        //         return "Field modified!";
+        //     }
+        //     catch (Exception e)
+        //     {
+        //         throw new ApplicationException("An error has ocurred: ", e);
+        //     }
+        // }
 
-        internal string Delete(string id)
-        {
-            try
-            {
-                Person search = new Person(id);
-                people.RemoveAll(x => search.Equals(x));
-                return "Field deleted!";
-            }
-            catch (Exception e)
-            {
-                throw new ApplicationException("An error has ocurred: ", e);
-            }
-        }
+        // internal string Delete(string id)
+        // {
+        //     try
+        //     {
+        //         Person search = new Person(id);
+        //         people.RemoveAll(x => search.Equals(x));
+        //         return "Field deleted!";
+        //     }
+        //     catch (Exception e)
+        //     {
+        //         throw new ApplicationException("An error has ocurred: ", e);
+        //     }
+        // }
 
-        internal static void SaveToCsv()
+        internal static void SaveToCsv(Person[] people)
         {
             if(people.Count() > 0)
             {
                 File.WriteAllText(Program.dataArchive, "ID,Name,LastName,Savings,Password,Data");
-                foreach (var p in Person.people)
+                foreach (var p in people.OrderBy(a => a.IndexInCsv))
                 {
                     File.AppendAllText(Program.dataArchive, $"{Environment.NewLine}{p.Id},{p.Name},{p.LastName},{p.Savings},{p.Password},{p.Data}");
                 }
